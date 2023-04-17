@@ -1,11 +1,3 @@
-import { TicketStatus } from "@prisma/client";
-
-export type TicketParams = {
-  userId: number;
-  ticketTypeId: number;
-  status: TicketStatus;
-};
-
 export type ApplicationError = {
   name: string;
   message: string;

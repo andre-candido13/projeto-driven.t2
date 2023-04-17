@@ -1,13 +1,13 @@
-import { TicketStatus, TicketType } from '@prisma/client';
+import { TicketStatus } from '@prisma/client';
 import { prisma } from '@/config';
 
 
 async function getTicketType() {
-return prisma.ticketType.findMany();
+return await prisma.ticketType.findMany();
 }
 
 async function getTicketByEnrollment(enrollmentId: number) {
-    return prisma.ticket.findFirst({
+    return await prisma.ticket.findFirst({
         where: {
             enrollmentId:enrollmentId, 
         }, include: {
@@ -19,13 +19,14 @@ async function getTicketByEnrollment(enrollmentId: number) {
 async function getTicketByTicket(ticketId: number) {
     return prisma.ticket.findFirst({
         where: {
-           id: ticketId,
-        }, include: {
-            Enrollment: true
-        }
-    })
-}
-
+          id: ticketId,
+        },
+        include: {
+          Enrollment: true,
+        },
+      });
+    }
+    
 async function getTicketByStatus (id: number) {
     return prisma.ticket.update({
         where: {id},
@@ -36,7 +37,7 @@ async function getTicketByStatus (id: number) {
 }
 
 async function postTicket (ticketTypeId: number, enrollmentId: number, status: TicketStatus) {
-    return prisma.ticket.create({
+    return await prisma.ticket.create({
         data: { ticketTypeId,
         enrollmentId,
         status
