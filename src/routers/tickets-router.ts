@@ -10,9 +10,9 @@ const ticketsRouter = Router();
 
 ticketsRouter
 .all('/', authenticateToken)
-.get('/types',  getTicketTypeInController  )
-.post('/', validateBody (ticketSchema), postTicket)
+.get('/types', authenticateToken, getTicketTypeInController)
 .get('/', getTicketByEnrollment)
+.post('/', validateBody (ticketSchema), postTicket)
 
 
     export {ticketsRouter}
