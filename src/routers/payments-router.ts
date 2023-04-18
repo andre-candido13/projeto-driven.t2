@@ -10,7 +10,7 @@ const paymentsRouter = Router();
 paymentsRouter
 .all('/*', authenticateToken)
 .get('/', getPaymentsController)
-.post('/process', validateBody, postPayments)
+.post('/process', postPayments)
 
 
 export { paymentsRouter }
