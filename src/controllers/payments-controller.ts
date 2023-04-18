@@ -25,3 +25,19 @@ export async function getPaymentsController (req: AuthenticatedRequest, res: Res
 }
 }
    
+
+export async function postPayments(req: AuthenticatedRequest, res: Response) {
+    try {
+
+      const posttPayment = await paymentService.postPayment({ ...req.body, userId: req.userId });
+  
+      return res.status(httpStatus.OK).send(posttPayment);
+    } catch (error) {
+        if (error.name === 'UnauthorizedError') 
+        return res.sendStatus(httpStatus.UNAUTHORIZED);
+      if (error.name === 'NotFoundError') 
+      return res.sendStatus(httpStatus.NOT_FOUND);
+
+      return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
